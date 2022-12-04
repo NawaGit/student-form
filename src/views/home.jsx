@@ -1,9 +1,11 @@
 import Header from "../components/header";
+import HeroSection from "../components/heroSection";
 
 const Home = () => {
 	return (
 		<div>
-			<Header />
+			{/* <Header /> */}
+            <HeroSection />
 		</div>
 	);
 };
