@@ -13,8 +13,104 @@
   ```
 */
 import countries from "../assets/data/countries";
+import { useState } from "react";
 
 const Form = () => {
+	const initialValues = {
+		firstName: "",
+		lastName: "",
+		email: "",
+		phone: "",
+		age: "",
+		college: "",
+		department: "",
+		country: "",
+		address: "",
+		city: "",
+		state: "",
+		zipCode: "",
+	};
+	const [values, setValues] = useState(initialValues);
+	const [errors, setErrors] = useState({});
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const validate = (values) => {
+		const errors = {};
+		if (!values.firstName) {
+			errors.firstName = "First Name is required";
+		} else if (values.firstName.length > 20) {
+			errors.firstName = "First Name must be less than 20 characters";
+		}
+        if (!values.lastName) {
+			errors.lastName = "Last Name is required";
+		}else if (values.lastName.length > 20) {
+			errors.lastName = "Last Name must be less than 20 characters";
+		}
+		if (!values.phone) {
+			errors.phone = "Phone is required";
+		}
+        if (!values.age) {
+			errors.age = "Age is required";
+		}
+        if (!values.college) {
+			errors.college = "College is required";
+		}
+        if (!values.department) {
+			errors.department = "Department is required";
+		}
+        if (!values.country) {
+			errors.country = "Country is required";
+		}
+        if (!values.address) {
+			errors.address = "Address is required";
+		}
+        if (!values.city) {
+			errors.city = "City is required";
+		}
+        if (!values.state) {
+			errors.state = "State is required";
+		}
+        if (!values.zipCode) {
+			errors.zipCode = "Zip Code is required";
+		}
+		return errors;
+	};
+
+    const emailValidate = (values) => {
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;		
+        const errors = {};
+		if (!values.email) {
+			errors.email = "Email is required";
+		} else if (values.email.length > 30) {
+			errors.email = "Email must be less than 30 characters";
+		} else if (!emailRegex.test(values.email)) {
+			errors.email = "Email is invalid";
+		}
+		return errors;
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setValues({
+			...values,
+			[name]: value,
+		});
+        
+        if (values.email) {
+            setErrors(
+                emailValidate({
+					...values,
+					[name]: value,
+				})
+                );
+        }
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setErrors(validate(values));
+		setIsSubmitting(true);
+	};
 
 	return (
 		<>
@@ -67,7 +163,7 @@ const Form = () => {
 						</div>
 					</div>
 					<div className="mt-5 md:col-span-2 md:mt-0">
-						<form action="#" method="POST">
+						<form action="#" method="POST" onSubmit={handleSubmit}>
 							<div className="overflow-hidden shadow sm:rounded-md">
 								<div className="bg-white px-4 py-5 sm:p-6">
 									<div className="grid grid-cols-6 gap-6">
@@ -80,11 +176,16 @@ const Form = () => {
 											</label>
 											<input
 												type="text"
-												name="first-name"
+												name="firstName"
 												id="first-name"
 												autoComplete="given-name"
+												value={values.firstName}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">
+												{errors.firstName}
+											</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-3">
@@ -96,11 +197,16 @@ const Form = () => {
 											</label>
 											<input
 												type="text"
-												name="last-name"
+												name="lastName"
 												id="last-name"
 												autoComplete="family-name"
+												value={values.lastName}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">
+												{errors.lastName ? errors.lastName : ""}
+											</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-4">
@@ -112,11 +218,14 @@ const Form = () => {
 											</label>
 											<input
 												type="text"
-												name="email-address"
+												name="email"
 												id="email-address"
 												autoComplete="email"
+												value={values.email}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">{errors.email}</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-2">
@@ -128,16 +237,19 @@ const Form = () => {
 											</label>
 											<input
 												type="tel"
-												name="mobile-number"
+												name="phone"
 												id="mobile-number"
 												autoComplete="phone"
+												value={values.phone}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">{errors.phone}</p>
 										</div>
 
-										<div className="col-span-6 sm:col-span-2">
+										<div className="col-span-6 sm:col-span-3 lg:col-span-2">
 											<label
-												htmlFor="age"
+												htmlFor="postal-code"
 												className="block text-sm font-medium text-gray-700"
 											>
 												Age
@@ -145,11 +257,56 @@ const Form = () => {
 											<input
 												type="number"
 												name="age"
-												min={0}
 												id="age"
+												min="0"
 												autoComplete="age"
+												value={values.age}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">{errors.age}</p>
+										</div>
+
+										<div className="col-span-6 sm:col-span-2">
+											<label
+												htmlFor="college"
+												className="block text-sm font-medium text-gray-700"
+											>
+												College
+											</label>
+											<input
+												type="text"
+												name="college"
+												id="college"
+												autoComplete="college"
+												value={values.college}
+												onChange={handleChange}
+												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+											/>
+											<p className="text-red-400">
+												{errors.college}
+											</p>
+										</div>
+
+										<div className="col-span-6 sm:col-span-2">
+											<label
+												htmlFor="department"
+												className="block text-sm font-medium text-gray-700"
+											>
+												Department
+											</label>
+											<input
+												type="text"
+												name="department"
+												id="department"
+												autoComplete="department"
+												value={values.department}
+												onChange={handleChange}
+												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+											/>
+											<p className="text-red-400">
+												{errors.department}
+											</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-3">
@@ -163,6 +320,8 @@ const Form = () => {
 												id="country"
 												name="country"
 												autoComplete="country-name"
+												value={values.country}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm"
 											>
 												{/* <option>United States</option>
@@ -172,6 +331,9 @@ const Form = () => {
 													<option key={key}>{item.name}</option>
 												))}
 											</select>
+											<p className="text-red-400">
+												{errors.country}
+											</p>
 										</div>
 
 										<div className="col-span-6">
@@ -183,11 +345,16 @@ const Form = () => {
 											</label>
 											<input
 												type="text"
-												name="street-address"
+												name="address"
 												id="street-address"
 												autoComplete="street-address"
+												value={values.address}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">
+												{errors.address}
+											</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-6 lg:col-span-2">
@@ -202,8 +369,11 @@ const Form = () => {
 												name="city"
 												id="city"
 												autoComplete="address-level2"
+												value={values.city}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">{errors.city}</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -215,11 +385,14 @@ const Form = () => {
 											</label>
 											<input
 												type="text"
-												name="region"
+												name="state"
 												id="region"
 												autoComplete="address-level1"
+												value={values.state}
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">{errors.state}</p>
 										</div>
 
 										<div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -230,12 +403,19 @@ const Form = () => {
 												ZIP / Postal code
 											</label>
 											<input
-												type="text"
-												name="postal-code"
+												type="number"
+												name="zipCode"
 												id="postal-code"
 												autoComplete="postal-code"
+												value={values.zipCode}
+												min="100000"
+												max="999999"
+												onChange={handleChange}
 												className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
 											/>
+											<p className="text-red-400">
+												{errors.zipCode}
+											</p>
 										</div>
 									</div>
 								</div>
