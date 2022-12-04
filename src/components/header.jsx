@@ -5,8 +5,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../assets/images/logo.png";
 const navigation = [
 	{ name: "Home", href: "/" },
-	{ name: "See Students Data", href: "/demo" },
-	{ name: "Enter Students Data", href: "/demo" },
+	{ name: "See Students Data", href: "/studententry" },
+	{ name: "Enter Students Data", href: "/studententry" },
 ];
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
 							className="flex lg:min-w-0 lg:flex-1"
 							aria-label="Global"
 						>
-							<a href="#" className="-m-1.5 p-1.5">
+							<a href="/" className="-m-1.5 p-1.5">
 								<span className="sr-only">Your Company</span>
 								<img
 									className="h-12"
@@ -56,7 +56,7 @@ const Header = () => {
 						</div>
 						<div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
 							<a
-								href="#"
+								href="/"
 								className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"
 							>
 								Log in
@@ -74,7 +74,7 @@ const Header = () => {
 						>
 							<div className="flex h-9 items-center justify-between">
 								<div className="flex">
-									<a href="#" className="-m-1.5 p-1.5">
+									<a href="/" className="-m-1.5 p-1.5">
 										<span className="sr-only">Your Company</span>
 										<img
 											className="h-8"
@@ -112,7 +112,7 @@ const Header = () => {
 									</div>
 									<div className="py-6">
 										<a
-											href="#"
+											href="/"
 											className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
 										>
 											Log in
