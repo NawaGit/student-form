@@ -13,7 +13,11 @@
   ```
 */
 import countries from "../assets/data/countries";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+
+const baseURL = "http://localhost:3000/students/new";
 
 const Form = () => {
 	const initialValues = {
@@ -31,54 +35,56 @@ const Form = () => {
 		zipCode: "",
 	};
 	const [values, setValues] = useState(initialValues);
+	const [finalValues, setFinalValues] = useState({});
 	const [errors, setErrors] = useState({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const validate = (values) => {
+	const validate = (values) => {
 		const errors = {};
 		if (!values.firstName) {
 			errors.firstName = "First Name is required";
 		} else if (values.firstName.length > 20) {
 			errors.firstName = "First Name must be less than 20 characters";
 		}
-        if (!values.lastName) {
+		if (!values.lastName) {
 			errors.lastName = "Last Name is required";
-		}else if (values.lastName.length > 20) {
+		} else if (values.lastName.length > 20) {
 			errors.lastName = "Last Name must be less than 20 characters";
 		}
 		if (!values.phone) {
 			errors.phone = "Phone is required";
 		}
-        if (!values.age) {
+		if (!values.age) {
 			errors.age = "Age is required";
 		}
-        if (!values.college) {
+		if (!values.college) {
 			errors.college = "College is required";
 		}
-        if (!values.department) {
+		if (!values.department) {
 			errors.department = "Department is required";
 		}
-        if (!values.country) {
+		if (!values.country) {
 			errors.country = "Country is required";
 		}
-        if (!values.address) {
+		if (!values.address) {
 			errors.address = "Address is required";
 		}
-        if (!values.city) {
+		if (!values.city) {
 			errors.city = "City is required";
 		}
-        if (!values.state) {
+		if (!values.state) {
 			errors.state = "State is required";
 		}
-        if (!values.zipCode) {
+		if (!values.zipCode) {
 			errors.zipCode = "Zip Code is required";
 		}
 		return errors;
 	};
 
-    const emailValidate = (values) => {
-        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;		
-        const errors = {};
+	const emailValidate = (values) => {
+		const emailRegex =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const errors = {};
 		if (!values.email) {
 			errors.email = "Email is required";
 		} else if (values.email.length > 30) {
@@ -95,15 +101,15 @@ const Form = () => {
 			...values,
 			[name]: value,
 		});
-        
-        if (values.email) {
-            setErrors(
-                emailValidate({
+
+		if (values.email) {
+			setErrors(
+				emailValidate({
 					...values,
 					[name]: value,
 				})
-                );
-        }
+			);
+		}
 	};
 
 	const handleSubmit = (e) => {
@@ -111,6 +117,18 @@ const Form = () => {
 		setErrors(validate(values));
 		setIsSubmitting(true);
 	};
+
+	useEffect(() => {
+		if (Object.keys(errors).length === 0 && isSubmitting) {
+			console.log("Submitted Successfully");
+			setFinalValues(values);
+			setValues(initialValues);
+			setIsSubmitting(false);
+			axios.post(baseURL, finalValues).then((response) => {
+				console.log(response);
+			});
+		}
+	}, [handleSubmit]);
 
 	return (
 		<>
