@@ -5,7 +5,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../assets/images/logo.png";
 const navigation = [
 	{ name: "Home", href: "/" },
-	{ name: "See Students Data", href: "/studententry" },
+	{ name: "See Students Data", href: "/studentview" },
 	{ name: "Enter Students Data", href: "/studententry" },
 ];
 

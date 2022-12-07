@@ -168,7 +168,7 @@ const HeroSection = () => {
 								</p>
 								<div className="mt-8 flex gap-x-4 sm:justify-center">
 									<a
-										href="#"
+										href="/studentview"
 										className="inline-block rounded-lg bg-orange-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-orange-600 hover:bg-orange-700 hover:ring-orange-700"
 									>
 										See Students
