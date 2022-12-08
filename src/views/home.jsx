@@ -1,4 +1,3 @@
-import Header from "../components/header";
 import HeroSection from "../components/heroSection";
 
 const Home = () => {
@@ -6,6 +5,11 @@ const Home = () => {
 		<div>
 			{/* <Header /> */}
             <HeroSection />
+            <div>hello is this good </div>
+            <a href="http://">sad</a>
+            <a href="#">asd</a>
+            
+
 		</div>
 	);
 };

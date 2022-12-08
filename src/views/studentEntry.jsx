@@ -1,10 +1,11 @@
 import Header from "../components/header";
 import Form from "../components/form";
+
 const StudentEntry = () => {
-    return(
+    return (
         <div>
-            <Header />
-            <Form />
+            <Header/>
+            <Form/>
         </div>
     );
 }
