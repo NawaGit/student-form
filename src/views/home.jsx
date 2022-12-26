@@ -4,11 +4,7 @@ const Home = () => {
 	return (
 		<div>
 			{/* <Header /> */}
-            <HeroSection />
-            <div>hello is this good </div>
-            <a href="http://">sad</a>
-            <a href="#">asd</a>
-            
+            <HeroSection />            
 
 		</div>
 	);
