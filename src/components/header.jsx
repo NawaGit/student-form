@@ -79,7 +79,7 @@ const Header = () => {
                                         <span className="sr-only">Your Company</span>
                                         <img
                                             className="h-8"
-                                            src="https://tailwindui.com/img/logos/mark.svg?color=orange&shade=600"
+                                            src={Logo}
                                             alt=""
                                         />
                                     </a>
