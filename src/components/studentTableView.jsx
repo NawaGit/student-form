@@ -1,4 +1,4 @@
-const StudentsTableView = ({ students }) => {
+const StudentsTableView = ({ students, search}) => {
 	return (
 		<>
 			<div className="px-48 sm:px-16">
@@ -30,7 +30,23 @@ const StudentsTableView = ({ students }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{students.map((student) => (
+							{students.filter((val)=>{
+								if (search == ""){
+									return val
+								}
+								else if (val.firstName.toLowerCase().includes(search.toLowerCase())){
+									return val
+								}
+								else if (val.lastName.toLowerCase().includes(search.toLowerCase())){
+									return val
+								}
+								else if (val.college.toLowerCase().includes(search.toLowerCase())){
+									return val
+								}
+								else if (val.department.toLowerCase().includes(search.toLowerCase())){
+									return val
+								}
+							}).map((student) => (
 								<tr key={students.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 									<th
 										scope="row"
