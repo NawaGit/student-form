@@ -15,12 +15,15 @@
 import countries from "../assets/data/countries";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useFormInputValidation } from "react-form-input-validation";
 
 
 const baseURL = "http://localhost:3000/students/new";
 
 const Form = () => {
+    const navigate = useNavigate();
+
     // const initialValues = {
     //     firstName: "",
     //     lastName: "",
@@ -197,6 +200,8 @@ const Form = () => {
                     const { data: res } = await axios.post(url, fields);
                     // navigate("/login");
                     console.log(res.message);
+					navigate("/studentview");
+
                 } catch (error) {
                     console.log(error);
                 }
