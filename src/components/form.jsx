@@ -161,10 +161,15 @@ const Form = () => {
 
         const [fields, errors, form] = useFormInputValidation({
             firstName: "",
+            middleName: "",
             lastName: "",
+            urnNo: "",
+            rollNo: "",
+            currentYear: "",
+            branch: "",
             email: "",
             phone: "",
-            age: "",
+            dob: "",
             college: "",
             department: "",
             country: "",
@@ -174,10 +179,15 @@ const Form = () => {
             zipCode: "",
         }, {
             firstName: "required",
+            middleName: "required",
             lastName: "required",
+            urnNo: "required|numeric",
+            rollNo: "required|numeric",
+            currentYear: "required|numeric",
+            branch: "required",
             email: "required|email",
             phone: "required|numeric|digits_between:10,12",
-            age: "required",
+            dob: "required",
             college: "required",
             department: "required",
             country: "required",
@@ -292,6 +302,30 @@ const Form = () => {
 
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label
+                                                    htmlFor="middle-name"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Middle name
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="middleName"
+                                                    id="middle-name"
+                                                    autoComplete="middle-name"
+                                                    // value={values.lastName}
+                                                    // onChange={handleChange}
+                                                    onBlur={form.handleBlurEvent}
+                                                    onChange={form.handleChangeEvent}
+                                                    value={fields.middleName}
+                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                                                />
+                                                <p className="text-red-400">
+                                                    {errors.middleName ? errors.middleName : ""}
+                                                </p>
+                                            </div>
+
+                                            <div className="col-span-6 sm:col-span-3">
+                                                <label
                                                     htmlFor="last-name"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
@@ -311,6 +345,102 @@ const Form = () => {
                                                 />
                                                 <p className="text-red-400">
                                                     {errors.lastName ? errors.lastName : ""}
+                                                </p>
+                                            </div>
+
+
+
+                                            <div className="col-span-6 sm:col-span-3">
+                                                <label
+                                                    htmlFor="urn-no"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    URN no.
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    name="urnNo"
+                                                    id="urn-no"
+                                                    // value={values.lastName}
+                                                    // onChange={handleChange}
+                                                    onBlur={form.handleBlurEvent}
+                                                    onChange={form.handleChangeEvent}
+                                                    value={fields.urnNo}
+                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                                                />
+                                                <p className="text-red-400">
+                                                    {errors.urnNo ? errors.urnNo : ""}
+                                                </p>
+                                            </div>
+
+
+
+                                            <div className="col-span-4 sm:col-span-2">
+                                                <label
+                                                    htmlFor="roll-no"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Roll no.
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    name="rollNo"
+                                                    id="roll-no"
+                                                    // value={values.lastName}
+                                                    // onChange={handleChange}
+                                                    onBlur={form.handleBlurEvent}
+                                                    onChange={form.handleChangeEvent}
+                                                    value={fields.rollNo}
+                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                                                />
+                                                <p className="text-red-400">
+                                                    {errors.rollNo ? errors.rollNo : ""}
+                                                </p>
+                                            </div>
+
+                                            <div className="col-span-4 sm:col-span-2">
+                                                <label
+                                                    htmlFor="current-year"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Current year 
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    name="currentYear"
+                                                    id="current-year"
+                                                    // value={values.lastName}
+                                                    // onChange={handleChange}
+                                                    onBlur={form.handleBlurEvent}
+                                                    onChange={form.handleChangeEvent}
+                                                    value={fields.currentYear}
+                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                                                />
+                                                <p className="text-red-400">
+                                                    {errors.currentYear ? errors.currentYear : ""}
+                                                </p>
+                                            </div>
+
+                                            <div className="col-span-4 sm:col-span-2">
+                                                <label
+                                                    htmlFor="branch"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Branch 
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="branch"
+                                                    id="branch"
+                                                    // value={values.lastName}
+                                                    // onChange={handleChange}
+                                                    onBlur={form.handleBlurEvent}
+                                                    onChange={form.handleChangeEvent}
+                                                    value={fields.branch}
+                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                                                />
+                                                <p className="text-red-400">
+                                                    {errors.branch ? errors.branch : ""}
                                                 </p>
                                             </div>
 
@@ -363,22 +493,21 @@ const Form = () => {
                                                     htmlFor="postal-code"
                                                     className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    Age
+                                                    DOB
                                                 </label>
                                                 <input
-                                                    type="number"
-                                                    name="age"
-                                                    id="age"
+                                                    type="text"
+                                                    name="dob"
+                                                    id="dob"
                                                     min="0"
-                                                    autoComplete="age"
                                                     // value={values.age}
                                                     // onChange={handleChange}
                                                     onBlur={form.handleBlurEvent}
                                                     onChange={form.handleChangeEvent}
-                                                    value={fields.age}
+                                                    value={fields.dob}
                                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                                                 />
-                                                <p className="text-red-400">{errors.age}</p>
+                                                <p className="text-red-400">{errors.dob}</p>
                                             </div>
 
                                             <div className="col-span-6 sm:col-span-2">
